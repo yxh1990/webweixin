@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>web微信V1.0</title>
+</head>
+<body>
+    <div>
+        <img id="userimg" style="height:300px;width:300px" src="https://login.weixin.qq.com/qrcode/{{ uuid }}" />
+    </div>
+<script src="/static/jquery.js"></script>
+<script type="text/javascript">
+    //通过js向自己的django后台程序发送ajax来避开浏览器的同源策略(跨域请求)
+    $(function(){
+       checkLogin();
+    });
+
+    function checkLogin()
+    {
+      $.ajax({
+           url:'/check_login.html',
+           type:'GET',
+           data:{},
+           dataType: 'JSON',
+           success:function(data)
+           {
+               if(data.code == 408)
+               {
+                   checkLogin();
+               }
+               else if(data.code == 201)
+               {
+                  $("#userimg").attr("src",data.data);
+                  checkLogin();
+               }
+               else
+               {
+                   location.href="/index.html";
+               }
+           }
+
+      });
+    }
+</script>
+</body>
+</html>
