@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91391be4-f219-4952-94bf-b42332b5c117" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/contact_all.html" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app01/views.py" afterPath="$PROJECT_DIR$/app01/views.py" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
-      <change beforePath="$PROJECT_DIR$/testweixin.py" afterPath="$PROJECT_DIR$/testweixin.py" />
-      <change beforePath="$PROJECT_DIR$/webchat/urls.py" afterPath="$PROJECT_DIR$/webchat/urls.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -310,7 +304,14 @@
       <option name="project" value="LOCAL" />
       <updated>1527403410903</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="success send msg">
+      <created>1527426958584</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1527426958584</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -355,7 +356,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="success login" />
-    <option name="LAST_COMMIT_MESSAGE" value="success login" />
+    <MESSAGE value="success send msg" />
+    <option name="LAST_COMMIT_MESSAGE" value="success send msg" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
