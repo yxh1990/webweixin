@@ -105,14 +105,55 @@ def check_login(req):
 def index(req):
 
     '''显示最近联系人'''
-    #img_url = "https://wx.qq.com" + req.session['init_dict']['User']['HeadImgUrl']
-    #print(img_url)
-    #res = requests.get(img_url, headers={'Referer': 'https://wx.qq.com/?&lang=zh_CN'})
-    #print(res.text)
     return render(req,'index.html')
-    #return HttpResponse("dddd")
 
 
+def contact_all(req):
+    base_url="https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxgetcontact?lang=zh_CN&pass_ticket={0}&r={1}&skey={2}"
+    ctime = time.time()*1000
+    url=base_url.format(req.session['TICKET_DICT']['pass_ticket'],ctime,req.session['TICKET_DICT']['skey'])
+    r1=requests.get(url,cookies=ALL_COOKIE_DICT,verify=False)
+    r1.encoding = "utf-8"
+    contact_dict = json.loads(r1.text)
+    return render(req,'contact_all.html',{'contact_dict':contact_dict})
+
+
+def send_msg(req):
+
+    recv =req.GET.get("recv")
+    content = req.GET.get('content')
+    baseurl="https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg?lang=zh_CN&pass_ticket={0}"
+    url = baseurl.format(req.session['TICKET_DICT']['pass_ticket'])
+    ctime = time.time()*1000
+    form_data = {
+         "BaseRequest":{
+                "DeviceID":"e839448703423521",
+                "Sid":req.session['TICKET_DICT']["wxsid"],
+                "Uin":req.session['TICKET_DICT']["wxuin"],
+                "Skey":req.session['TICKET_DICT']["skey"]
+            },
+        "Msg":{
+              "ClientMsgId":ctime,
+              "Content":content,
+              "FromUserName":req.session['init_dict']["User"]["UserName"],
+              "LocalID":ctime,
+              "ToUserName":recv,
+              "Type":1
+        },
+        "Scene":0
+    }
+    #json.dumps(ensure_ascii=True) 导致中文乱码
+    #如果是字符串则不会调用json.dumps
+    r1=requests.post(
+        url=url,
+        data=bytes(json.dumps(form_data,ensure_ascii=False),encoding="utf-8"),
+        headers={
+            'Content-Type':'application/json'
+        },
+        cookies=ALL_COOKIE_DICT
+    )
+    print(r1.text)
+    return HttpResponse("send msg over...")
 
 
 

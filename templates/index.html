@@ -7,13 +7,21 @@
 <body>
     <h1>个人信息</h1>
      <div>
-          <h6>{{ request.session.init_dict.User.NickName }}</h6>
+          <h3>{{ request.session.init_dict.User.NickName }}</h3>
      </div>
      <img src="{{ request.session.USER_IMG }}"  />
     <h1>最近联系人</h1>
-    {% for user in request.session.init_dict.ContactList %}
-        {{ user }}
-    {% endfor %}
+     <ul>
+        {% for user in request.session.init_dict.ContactList %}
+           <li>
+               {{ user.NickName }}
+          </li>
+       {% endfor %}
+     </ul>
+    <a href="/contact_all/">查看更多联系人</a>
     <h1>公共号信息</h1>
+     {% for msg in request.session.init_dict.MPSubcribeMsgList %}
+            <div>{{ msg.NickName }}</div>
+    {% endfor %}
 </body>
 </html>

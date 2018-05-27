@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>web微信1.0</title>
+</head>
+<body>
+ <div>
+       <h1>发送消息</h1>
+       <p>接收者:<input  type="text" id="recv" /></p>
+       <p>消息:<input type="text" id="content" /></p>
+       <input type="button" id="btn" value="发送"/>
+ </div>
+<div>
+       <h1>联系人列表</h1>
+       <ul>
+           {% for item in contact_dict.MemberList %}
+             <li>{{ item.UserName }} :   {{ item.NickName }}</li>
+           {% endfor %}
+       </ul>
+ </div>
+<script src="/static/jquery.js"></script>
+<script>
+    $(function(){
+        $("#btn").click(function(){
+            var recv = $("#recv").val();
+            var content=$("#content").val();
+            $.ajax({
+                url:'/send_msg/',
+                data:{'recv':recv,'content':content},
+                success:function(arg)
+                {
+                    console.log(arg);
+                }
+            })
+        })
+    });
+</script>
+</body>
+</html>
