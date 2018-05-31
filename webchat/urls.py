@@ -26,5 +26,7 @@ urlpatterns = [
     url(r"^index.html$",views.index),
     url(r"^contact_all/$",views.contact_all),
     url(r"^send_msg/$",views.send_msg),
+    url(r"^avatar.html$",views.avatar),
+    url(r"^get_msg.html$",views.get_msg),
     url(r"^asset/",aview.AssetView.as_view()),
 ]

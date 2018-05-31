@@ -7,27 +7,49 @@
 <body>
  <div>
        <h1>发送消息</h1>
-       <p>接收者:<input  type="text" id="recv" /></p>
-       <p>消息:<input type="text" id="content" /></p>
+       <p>发送者:<input  type="text" id="send" style="width: 500px;height: 200px"/></p>
+       <p>接收者:<input  type="text" id="recv" style="width: 500px;height: 200px" /></p>
+       <p>内容:<input type="text" id="content" style="width: 500px;height: 200px" /></p>
        <input type="button" id="btn" value="发送"/>
  </div>
 <div>
        <h1>联系人列表</h1>
        <ul>
+           <li>
+                <img src="{{ request.session.USER_IMG }}"  />
+                {{ request.session.init_dict.User.UserName }}: {{ request.session.init_dict.User.NickName }}
+           </li>
            {% for item in contact_dict.MemberList %}
-             <li>{{ item.UserName }} :   {{ item.NickName }}</li>
+             <li>
+              {#   不能直接这么写  <img src="https://wx2.qq.com/{{ item.HeadImgUrl }}" />#}
+                  <img src="/avatar.html?imgUrl={{ item.HeadImgUrl }}" />
+                 {{ item.UserName }} :   {{ item.NickName }}
+             </li>
            {% endfor %}
        </ul>
  </div>
 <script src="/static/jquery.js"></script>
 <script>
+    function getMsg()
+    {
+       $.ajax({
+            url: '/get_msg.html',
+            type: 'GET',
+            success:function(arg){
+                console.log(arg);
+                getMsg();
+            }
+       });
+    }
     $(function(){
+       // getMsg();
         $("#btn").click(function(){
+            var send = $("#send").val();
             var recv = $("#recv").val();
             var content=$("#content").val();
             $.ajax({
                 url:'/send_msg/',
-                data:{'recv':recv,'content':content},
+                data:{'send':send,'recv':recv,'content':content},
                 success:function(arg)
                 {
                     console.log(arg);
